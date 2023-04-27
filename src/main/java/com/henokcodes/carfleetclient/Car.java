@@ -7,17 +7,19 @@ public class Car {
 	private String brand;
 	private String color;
 	private long price;
+	private boolean isAvailable;
 
 	public Car() {
 
 	}
 
-	public Car(String licensePlate, String type, String brand, String color, long price) {
+	public Car(String licensePlate, String type, String brand, String color, long price, boolean isAvailable) {
 		this.licensePlate = licensePlate;
 		this.type = type;
 		this.brand = brand;
 		this.color = color;
 		this.price = price;
+		this.isAvailable = isAvailable;
 	}
 
 	public String getLicensePlate() {
@@ -60,6 +62,14 @@ public class Car {
 		this.price = price;
 	}
 
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+
+	public void setAvailable(boolean available) {
+		isAvailable = available;
+	}
+
 	@Override
 	public String toString() {
 		return "Car{" +
@@ -68,6 +78,7 @@ public class Car {
 				", brand='" + brand + '\'' +
 				", color='" + color + '\'' +
 				", price=" + price +
+				", isAvailable=" + isAvailable +
 				'}';
 	}
 }

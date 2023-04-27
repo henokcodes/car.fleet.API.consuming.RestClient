@@ -25,10 +25,20 @@ public class CarfleetclientApplication {
 
 	private static String serverUrl="http://localhost:8082/api/v1/cars";
 
+
+
 	public static void main(String[] args) throws JsonProcessingException {
 		SpringApplication.run(CarfleetclientApplication.class, args);
 
+
 		RestTemplate restTemplate = new RestTemplate();
+		// add a new car
+		Car car = new Car("TK135", "Van", "Toyota", "Red", 1000,true);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(car);
+		System.out.println("Adding a new car");
+		ResponseEntity<Car> response = restTemplate.postForEntity(serverUrl, car, Car.class);
+
 
 		System.out.println("All Cars");
 		Cars res = restTemplate.getForObject(
@@ -38,39 +48,44 @@ public class CarfleetclientApplication {
 		System.out.println(cars);
 
 
-		System.out.println("Car with license plate GHT134 ");
-		Object toyotaCars = restTemplate.getForObject(serverUrl+"/GHT134", Car.class);
-		System.out.println(toyotaCars);
+		System.out.println("Car with license plate HO125 ");
+		Car singleCar = (Car)restTemplate.getForObject(serverUrl+"/HO125", Car.class);
+		System.out.println(singleCar);
 
-		String type = "Sedan";
-		String brand = "Hyundai";
-		System.out.println("Car with brand Hyundai");
+		String type = "Van";
+		String brand = "Toyota";
+		System.out.println("Car with brand:"+ brand+" and type:"+type);
 
+		//find by brand and type
 		Cars resp = restTemplate.getForObject(
 				serverUrl+"/search?brand="+brand+"&type="+type,
 				Cars.class);
 		List<Car> hCars = resp.getCars();
-
-
-
-
 		if(hCars.isEmpty())
 			System.out.println("No cars found");
-		else
-		System.out.println(hCars);
+		System.out.println(hCars.size()+" car(s) found");
 
-		if (hCars.size()<3){
-			System.out.println("Amount of this specific car is less than three");
-		}
+		//delete a car
+		System.out.println("Deleting a car");
+		restTemplate.delete(serverUrl+"/TK135");
 
+		//update a car
+		System.out.println("Updating a car");
 
+		singleCar.setBrand("Hyundai");
+		restTemplate.put(serverUrl, singleCar);
+		System.out.println("Car with license plate HO125 ");
+		Object toyotaCars2 = restTemplate.getForObject(serverUrl+"/HO125", Car.class);
+		System.out.println(toyotaCars2);
 
-
+		System.out.println("All Cars");
+		Cars all = restTemplate.getForObject(
+				serverUrl,
+				Cars.class);
+		List<Car> allCa = all.getCars();
+		System.out.println(allCa);
 
 	}
-
-
-
 
 		}
 
