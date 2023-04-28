@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.henokcodes</groupId>
-	<artifactId>carfleetclient</artifactId>
+	<artifactId>carrentalclient</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>carfleetclient</name>
-	<description>Car fleet Client</description>
+	<name>carrentalclient</name>
+	<description>Car Rental Client</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -26,6 +26,11 @@
 					<artifactId>spring-boot-starter-tomcat</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
